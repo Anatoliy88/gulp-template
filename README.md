@@ -1,5 +1,8 @@
 # gulp-template
+## Установка шаблона
 
-# git clone https://github.com/Anatoliy88/gulp-template.git
-# npm i
-# gulp
+``` sh
+$ git clone https://github.com/Anatoliy88/gulp-template.git
+$ cd project-name
+$ npm i
+```
