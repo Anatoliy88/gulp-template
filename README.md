@@ -2,7 +2,6 @@
 ## Установка шаблона
 
 ``` sh
-$ git clone https://github.com/Anatoliy88/gulp-template.git
-$ cd project-name
+$ git clone https://github.com/Anatoliy88/gulp-template.git project-name && cd project-name
 $ npm i
 ```

@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    concatCss = require('gulp-concat-css'),
     notify = require("gulp-notify"),
     autoprefixer = require('gulp-autoprefixer'),
     connect = require('gulp-connect'),
