@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     notify = require("gulp-notify"),
     autoprefixer = require('gulp-autoprefixer'),
