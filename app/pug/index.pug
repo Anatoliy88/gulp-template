@@ -1,0 +1,27 @@
+doctype html
+html(lang="ru")
+  head
+    title="Заголовок"
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="css/main.min.css")
+  body
+    main
+      .container
+        button.contact-button popup
+  .popup
+    .popup-container
+      .popup-box
+        .popup-close X
+        form#order
+          h3.order-title
+          h3.order-subtitle
+          .order-fields
+            input(type="text", name="name", placeholder="Ваше имя")
+            input(type="tel", name="phone", placeholder="Ваш телефон")
+            input(type="email", name="email", placeholder="Ваш email")
+            textarea(name="text", placeholder="Some text")
+          input(type="submit", name="submit-popup", class="send-btn", value="Отправить")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js")
+  script(src="js/libs.min.js")
+  script(src="js/main.min.js")

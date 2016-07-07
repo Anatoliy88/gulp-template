@@ -4,9 +4,8 @@ var gulp = require('gulp'),
     notify = require("gulp-notify"),
     browserSync = require('browser-sync'),
     autoprefixer = require('gulp-autoprefixer'),
-    sass = require('gulp-sass'),
     stylus = require('gulp-stylus'),
-    jade = require('gulp-jade'),
+    pug = require('gulp-pug'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     concat = require('gulp-concat'),
@@ -22,21 +21,18 @@ gulp.task('browser-sync', function() {
   browserSync({
     server: {
       baseDir: 'app'
-    },
-    notify: false
+    }
   });
 });
 
-//jade
+//pug
 
-gulp.task('jade', function() {
-    gulp.src('app/jade/*.jade')
-    .pipe(jade({
-      pretty: true
-    }))
-    .pipe(gulp.dest('app/'))
-    //.pipe(connect.reload())
-    .pipe(notify('Nice!'));
+gulp.task('pug', function buildHTML() {
+  return gulp.src('app/pug/**/*.pug')
+  .pipe(pug({
+    pretty: true
+  }))
+  .pipe(gulp.dest('app/'))
 });
 
 // stylus
@@ -54,12 +50,11 @@ gulp.task('stylus', function () {
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}))
-    .pipe(notify('Nice!'));
 });
 
 // scripts
 
-gulp.task('scripts', function(){
+gulp.task('libs', function(){
   return gulp.src([
     'app/assets/jquery/dist/jquery.min.js',
     'app/assets/owl-carousel/owl-carousel/owl.carousel.min.js'
@@ -69,10 +64,20 @@ gulp.task('scripts', function(){
     .pipe(gulp.dest('app/js'));
 });
 
+gulp.task('js', function(){
+  return gulp.src([
+    'app/js/main.js'
+  ])
+    .pipe(concat('main.min.js'))
+    .pipe(uglifyjs())
+    .pipe(gulp.dest('app/js'));
+});
+
 // watch
 
-gulp.task('watch',['browser-sync', 'stylus', 'scripts'], function () {
-  gulp.watch('app/stylus/*.styl', ['stylus']);
+gulp.task('watch',['browser-sync', 'stylus', 'libs', 'pug', 'js'], function () {
+  gulp.watch('app/stylus/**/*.styl', ['stylus']);
+  gulp.watch('app/pug/**/*.pug', ['pug']);
   gulp.watch('app/*.html', browserSync.reload);
   gulp.watch('app/js/**/*.js', browserSync.reload);
 });
@@ -97,7 +102,7 @@ gulp.task('img', function() {
 
 //build
 
-gulp.task('build', ['clean', 'img', 'stylus', 'scripts'], function() {
+gulp.task('build', ['clean', 'img', 'stylus', 'libs'], function() {
 
   var buildCss = gulp.src([
       'app/css/main.min.css'

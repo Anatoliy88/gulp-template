@@ -4,13 +4,34 @@
     <title>Заголовок</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.min.css">
   </head>
   <body>
     <main>
-      <div class="container"></div>
+      <div class="container">
+        <button class="contact-button">popup</button>
+      </div>
     </main>
   </body>
+  <div class="popup">
+    <div class="popup-container">
+      <div class="popup-box">
+        <div class="popup-close">X</div>
+        <form id="order">
+          <h3 class="order-title"></h3>
+          <h3 class="order-subtitle"></h3>
+          <div class="order-fields">
+            <input type="text" name="name" placeholder="Ваше имя">
+            <input type="tel" name="phone" placeholder="Ваш телефон">
+            <input type="email" name="email" placeholder="Ваш email">
+            <textarea name="text" placeholder="Some text"></textarea>
+          </div>
+          <input class="send-btn" type="submit" name="submit-popup" value="Отправить">
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
   <script src="js/libs.min.js"></script>
-  <script src="js/common.js"></script>
+  <script src="js/main.min.js"></script>
 </html>
