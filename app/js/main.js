@@ -41,6 +41,6 @@ form.addEventListener("submit", function(event) {
 
 window.addEventListener("keydown", function (event) {
   if (event.keyCode == 27 && popup.classList.contains("popup-show")) {
-    popup.classList.remove("popup-show, popup-error")
+    popup.classList.remove("popup-show", "popup-error")
   }
 });
