@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     del = require("del"),
     rename = require("gulp-rename"),
+    plumber = require('gulp-plumber'),
     cache = require('gulp-cache');
 
 // browser-sync server
@@ -29,6 +30,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('pug', function buildHTML() {
   return gulp.src('app/pug/**/*.pug')
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
   .pipe(pug({
     pretty: true
   }))
@@ -39,17 +41,18 @@ gulp.task('pug', function buildHTML() {
 
 gulp.task('stylus', function () {
   return gulp.src('app/stylus/main.styl')
-    .pipe(stylus({
-      compress: true
-    }))
-    .pipe(autoprefixer({
-            browsers: ['last 15 versions','> 1%', 'ie 8', 'ie 7'],
-            cascade: false
-        }))
-    .pipe(minifyCss({compatibility: 'ie8'}))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('app/css'))
-    .pipe(browserSync.reload({stream: true}))
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(stylus({
+    compress: true
+  }))
+  .pipe(autoprefixer({
+          browsers: ['last 15 versions','> 1%', 'ie 8', 'ie 7'],
+          cascade: false
+      }))
+  .pipe(minifyCss({compatibility: 'ie8'}))
+  .pipe(rename({suffix: '.min'}))
+  .pipe(gulp.dest('app/css'))
+  .pipe(browserSync.reload({stream: true}))
 });
 
 // scripts
@@ -59,18 +62,20 @@ gulp.task('libs', function(){
     'app/assets/jquery/dist/jquery.min.js',
     'app/assets/owl-carousel/owl-carousel/owl.carousel.min.js'
   ])
-    .pipe(concat('libs.min.js'))
-    .pipe(uglifyjs())
-    .pipe(gulp.dest('app/js'));
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(concat('libs.min.js'))
+  .pipe(uglifyjs())
+  .pipe(gulp.dest('app/js'));
 });
 
 gulp.task('js', function(){
   return gulp.src([
     'app/js/main.js'
   ])
-    .pipe(concat('main.min.js'))
-    .pipe(uglifyjs())
-    .pipe(gulp.dest('app/js'));
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(concat('main.min.js'))
+  .pipe(uglifyjs())
+  .pipe(gulp.dest('app/js'));
 });
 
 // watch
@@ -91,13 +96,13 @@ gulp.task('clean', function() {
 // imagemin
 
 gulp.task('img', function() {
-  return gulp.src('img/**/*')
+  return gulp.src('app/assets/images/**/*')
     .pipe(cache(imagemin({
       progressive: true,
       svgoPlugins: [{removeViewBox: false}],
       use: [pngquant({})]
     })))
-    .pipe(gulp.dest('dist/img'));
+    .pipe(gulp.dest('dist/assets/images'));
 });
 
 //build
@@ -109,7 +114,7 @@ gulp.task('build', ['clean', 'img', 'stylus', 'libs'], function() {
     ])
     .pipe(gulp.dest('dist/css'));
 
-  var buildFonts = gulp.src('app/fonts/**/*')
+  var buildFonts = gulp.src('app/assetsfonts/**/*')
     .pipe(gulp.dest('dist/fonts'));
 
   var buildJs = gulp.src('app/js/**/*')
