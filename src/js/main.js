@@ -12,14 +12,14 @@ var link = document.querySelector(".contact-button"),
 
 link.addEventListener("click", function(event) {
   event.preventDefault();
-  popup.classList.add("popup-show");
+  popup.classList.add("popup-show")
 
-  if(storageLogin) {
-    login.value = storageLogin;
-    mail.focus();
-  } else {
-    login.focus();
-  }
+    if(storageLogin) {
+      login.value = storageLogin;
+      mail.focus();
+    } else {
+      login.focus();
+    }
 });
 
 close.addEventListener("click", function(event) {
