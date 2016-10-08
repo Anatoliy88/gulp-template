@@ -1,7 +1,7 @@
 
 // Forms modal
 
-var link = document.querySelector(".contact-button"),
+var link = document.querySelectorAll(".contact-button"),
     popup = document.querySelector(".popup"),
     close = document.querySelector(".popup-close"),
     form = popup.querySelector("form"),
@@ -10,17 +10,23 @@ var link = document.querySelector(".contact-button"),
     storageLogin = localStorage.getItem("login"),
     storageMail = localStorage.getItem("mail");
 
-link.addEventListener("click", function(event) {
-  event.preventDefault();
-  popup.classList.add("popup-show")
 
-    if(storageLogin) {
-      login.value = storageLogin;
-      mail.focus();
-    } else {
-      login.focus();
-    }
-});
+for (var i = 0; i < link.length; i++) {
+  var linkBtns = link[i];
+    linkBtns.addEventListener("click", function openPopup(event) {
+    event.preventDefault();
+    popup.classList.add("popup-show")
+
+      if(storageLogin) {
+        login.value = storageLogin;
+        mail.focus();
+      } else {
+        login.focus();
+      }
+  })
+};
+
+
 
 close.addEventListener("click", function(event) {
   event.preventDefault();
