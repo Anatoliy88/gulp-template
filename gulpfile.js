@@ -59,8 +59,7 @@ gulp.task('stylus', function () {
 
 gulp.task('libs', function(){
   return gulp.src([
-    'src/assets/jquery/dist/jquery.min.js',
-    'src/assets/owl-carousel/owl-carousel/owl.carousel.min.js'
+    'src/assets/jquery/dist/jquery.min.js'
   ])
   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
   .pipe(concat('libs.min.js'))
